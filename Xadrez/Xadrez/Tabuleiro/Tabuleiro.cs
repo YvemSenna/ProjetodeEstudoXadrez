@@ -13,11 +13,10 @@ class Tabuleiro
         this.colunas = colunas;
         pecas = new Peca[linhas, colunas];
     }
-
     public Tabuleiro()
     {
-    }
 
+    }
     public Peca peca(int linha, int coluna)
     {
         return pecas[linha, coluna];
@@ -31,7 +30,6 @@ class Tabuleiro
         ValidarPosicao(pos);
         return peca(pos) != null;
     }
-
     public void InserirPeca(Peca p, Posicao pos)
     {
         if (ExistePeca(pos)) 
@@ -40,6 +38,17 @@ class Tabuleiro
         }
         pecas[pos.linha, pos.coluna] = p;
         p.posicao = pos;
+    }
+    public Peca RetirarPeca(Posicao pos)
+    {
+        if (peca(pos) == null)
+        {
+            return null;
+        }
+        Peca aux = peca(pos);
+        aux.posicao = null;
+        pecas[pos.linha, pos.coluna] = null;
+        return aux;
     }
     public bool Posicaovalida(Posicao pos) 
     { 
@@ -56,5 +65,4 @@ class Tabuleiro
             throw new TabuleiroException("Posição Invalida!");
         }
     }
-
 }
