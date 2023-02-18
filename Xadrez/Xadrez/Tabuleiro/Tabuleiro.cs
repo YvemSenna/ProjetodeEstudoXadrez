@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Xadrez.Tabuleiro;
+﻿namespace tabuleiro;
 
 class Tabuleiro
 {
@@ -19,4 +13,14 @@ class Tabuleiro
         this.colunas = colunas;
         pecas = new Peca[linhas, colunas];
     }
+
+    public Tabuleiro()
+    {
+    }
+
+    public Peca peca(int linha, int coluna)
+    {
+        return pecas[linha, coluna];
+    }
+
 }
