@@ -9,6 +9,7 @@ class PartidadeXadrez
     public Tabuleiro tab { get; private set; }
     private int turno;
     private Cor JogadorAtual;
+    public bool terminada { get; private set; }
 
     public PartidadeXadrez()
     {
@@ -21,6 +22,7 @@ class PartidadeXadrez
         Peca p = tab.RetirarPeca(origem);
         p.IncrementarQteMovimentos();
         Peca PecaCapturada = tab.RetirarPeca(destino);
+        terminada = false;
         tab.InserirPeca(p, destino);
     }
     private void InserirPecas()
