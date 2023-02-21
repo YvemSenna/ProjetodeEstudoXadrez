@@ -1,6 +1,6 @@
 ﻿namespace tabuleiro;
 
-class Peca
+abstract class Peca
 {
     public Posicao posicao { get; set; }
     public Cor cor { get; protected set; }
@@ -12,8 +12,9 @@ class Peca
         this.posicao = null;
         this.cor = cor;
         this.tab = tab;
-        this.QteMovimentos= 0;
+        this.QteMovimentos = 0;
     }
+    public abstract bool[,] MovimentosPossiveis();
     public Peca(Tabuleiro tab, Cor cor)
     {
         this.tab = tab;
