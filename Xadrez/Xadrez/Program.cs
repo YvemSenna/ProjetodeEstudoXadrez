@@ -15,28 +15,25 @@ class program
             {
                 try
                 {
-                     Console.Clear();
-                     Tela.ImprimirTabuleiro(partida.tab);
-                     Console.WriteLine();
-                     Console.WriteLine("Turno: " + partida.turno);
-                     Console.WriteLine("Aguardando: " + partida.JogadorAtual);
+                    Console.Clear();
+                    Tela.ImprimirPartida(partida);
+         
+                    Console.WriteLine();
+                    Console.Write("Origem: ");
+                    Posicao origem = Tela.LerPosicaoXadrez().toPosicao();
+                    partida.ValidarPosicaoDeOrigem(origem);
 
-                     Console.WriteLine();
-                     Console.Write("Origem: ");
-                     Posicao origem = Tela.LerPosicaoXadrez().toPosicao();
-                     partida.ValidarPosicaoDeOrigem(origem);
+                    bool[,] PosicoesPossiveis = partida.tab.peca(origem).MovimentosPossiveis();
 
-                     bool[,] PosicoesPossiveis = partida.tab.peca(origem).MovimentosPossiveis();
+                    Console.Clear();
+                    Tela.ImprimirTabuleiro(partida.tab, PosicoesPossiveis);
 
-                     Console.Clear();
-                     Tela.ImprimirTabuleiro(partida.tab, PosicoesPossiveis);
-
-                     Console.WriteLine();
-                     Console.Write("Destino: ");
-                     Posicao destino = Tela.LerPosicaoXadrez().toPosicao();
+                    Console.WriteLine();
+                    Console.Write("Destino: ");
+                    Posicao destino = Tela.LerPosicaoXadrez().toPosicao();
                     partida.ValidarPosicaodestino(origem, destino);
                
-                     partida.RealizaJogada(origem, destino);
+                    partida.RealizaJogada(origem, destino);
                 }
                 catch (Exception e)
                 {
