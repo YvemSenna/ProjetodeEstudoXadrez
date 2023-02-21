@@ -13,24 +13,37 @@ class program
 
             while (!partida.terminada)
             {
-                Console.Clear();
-                Tela.ImprimirTabuleiro(partida.tab);
+                try
+                {
+                     Console.Clear();
+                     Tela.ImprimirTabuleiro(partida.tab);
+                     Console.WriteLine();
+                     Console.WriteLine("Turno: " + partida.turno);
+                     Console.WriteLine("Aguardando: " + partida.JogadorAtual);
 
-                Console.WriteLine();
-                Console.Write("Origem: ");
-                Posicao origem = Tela.LerPosicaoXadrez().toPosicao();
+                     Console.WriteLine();
+                     Console.Write("Origem: ");
+                     Posicao origem = Tela.LerPosicaoXadrez().toPosicao();
+                     partida.ValidarPosicaoDeOrigem(origem);
 
-                bool[,] PosicoesPossiveis = partida.tab.peca(origem).MovimentosPossiveis();
+                     bool[,] PosicoesPossiveis = partida.tab.peca(origem).MovimentosPossiveis();
 
-                Console.Clear();
-                Tela.ImprimirTabuleiro(partida.tab, PosicoesPossiveis);
+                     Console.Clear();
+                     Tela.ImprimirTabuleiro(partida.tab, PosicoesPossiveis);
 
-                Console.WriteLine();
-                Console.Write("Destino: ");
-                Posicao destino = Tela.LerPosicaoXadrez().toPosicao();
-
-                partida.ExecutaMovimento(origem, destino);
-            }
+                     Console.WriteLine();
+                     Console.Write("Destino: ");
+                     Posicao destino = Tela.LerPosicaoXadrez().toPosicao();
+                    partida.ValidarPosicaodestino(origem, destino);
+               
+                     partida.RealizaJogada(origem, destino);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    Console.ReadLine();
+                }
+            }          
         }
         catch (Exception e) 
         {
