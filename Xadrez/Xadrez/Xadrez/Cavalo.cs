@@ -2,15 +2,15 @@
 
 namespace Xadrez;
 
-class Rei : Peca
+class Cavalo : Peca
 {
-    public Rei(Tabuleiro tab, Cor cor) : base (tab, cor)
+    public Cavalo(Tabuleiro tab, Cor cor) : base (tab, cor)
     {
 
     }
     public override string ToString()
     {
-        return "R";
+        return "C";
     }
     private bool PodeMover(Posicao pos)
     {
@@ -23,57 +23,43 @@ class Rei : Peca
 
         Posicao pos = new Posicao(0, 0);
 
-        //Acimna
-        pos.DefinirValores(posicao.linha - 1, posicao.coluna);
-        if (tab.Posicaovalida(pos) && PodeMover(pos)) 
-        {
-            mat[pos.linha, pos.coluna] = true;
-        }
-
-        //Nordeste
-        pos.DefinirValores(posicao.linha - 1, posicao.coluna + 1);
+        pos.DefinirValores(posicao.linha - 1, posicao.coluna +2);
         if (tab.Posicaovalida(pos) && PodeMover(pos))
         {
             mat[pos.linha, pos.coluna] = true;
         }
 
-        //Direita
-        pos.DefinirValores(posicao.linha, posicao.coluna + 1);
+        pos.DefinirValores(posicao.linha - 2, posicao.coluna - 1);
         if (tab.Posicaovalida(pos) && PodeMover(pos))
         {
             mat[pos.linha, pos.coluna] = true;
         }
 
-        //Sudeste
-        pos.DefinirValores(posicao.linha +1, posicao.coluna + 1);
+        pos.DefinirValores(posicao.linha - 1, posicao.coluna + 2);
         if (tab.Posicaovalida(pos) && PodeMover(pos))
         {
             mat[pos.linha, pos.coluna] = true;
         }
 
-        //Abaixo
-        pos.DefinirValores(posicao.linha + 1, posicao.coluna);
+        pos.DefinirValores(posicao.linha + 1, posicao.coluna + 2);
         if (tab.Posicaovalida(pos) && PodeMover(pos))
         {
             mat[pos.linha, pos.coluna] = true;
         }
 
-        //Sudoeste
-        pos.DefinirValores(posicao.linha + 1, posicao.coluna - 1);
+        pos.DefinirValores(posicao.linha + 2, posicao.coluna + 1);
         if (tab.Posicaovalida(pos) && PodeMover(pos))
         {
             mat[pos.linha, pos.coluna] = true;
         }
 
-        //Esquerda
-        pos.DefinirValores(posicao.linha, posicao.coluna - 1);
+        pos.DefinirValores(posicao.linha +2, posicao.coluna - 1);
         if (tab.Posicaovalida(pos) && PodeMover(pos))
         {
             mat[pos.linha, pos.coluna] = true;
         }
 
-        //Noroeste
-        pos.DefinirValores(posicao.linha - 1, posicao.coluna - 1);
+        pos.DefinirValores(posicao.linha - 1, posicao.coluna - 2);
         if (tab.Posicaovalida(pos) && PodeMover(pos))
         {
             mat[pos.linha, pos.coluna] = true;
