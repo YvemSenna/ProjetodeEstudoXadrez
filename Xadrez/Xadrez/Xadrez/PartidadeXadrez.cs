@@ -11,6 +11,8 @@ class PartidadeXadrez
     public bool terminada { get; private set; }
     public bool xeque { get; private set; }
 
+    private Peca VulneravelEnPassant;
+
     private HashSet<Peca> pecas;
     private HashSet<Peca> capturadas;
     public PartidadeXadrez()
@@ -20,6 +22,7 @@ class PartidadeXadrez
         JogadorAtual = Cor.Branca;
         terminada = false;
         xeque = false;
+        VulneravelEnPassant = null;
         pecas = new HashSet<Peca>();
         capturadas = new HashSet<Peca>();
         InserirPecas();
@@ -111,6 +114,18 @@ class PartidadeXadrez
         {
             turno++;
             MudaJogador();
+        }
+
+        Peca p = tab.peca(destino);
+
+        //#JogadaEspecial En Passant
+        if (p is Peao && (destino.linha == origem.linha - 2 || destino.linha == origem.linha + 2 ))
+        {
+            VulneravelEnPassant = p;
+        }
+        else
+        {
+            VulneravelEnPassant = null;
         }
     }
     public void ValidarPosicaoDeOrigem(Posicao pos)
