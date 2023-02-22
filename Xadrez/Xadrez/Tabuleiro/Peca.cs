@@ -43,7 +43,7 @@ abstract class Peca
         }
         return false;
     }
-    public bool PodeMoverPara(Posicao pos)
+    public bool MovimentoPossivel(Posicao pos)
     {
         return MovimentosPossiveis()[pos.linha, pos.coluna];
     }
