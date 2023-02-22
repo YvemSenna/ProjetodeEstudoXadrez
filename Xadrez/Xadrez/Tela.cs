@@ -1,7 +1,5 @@
-﻿using System;
-using tabuleiro;
-using Xadrez;
-using System.Collections.Generic;
+﻿using Xadrez;
+
 
 
 namespace tabuleiro;

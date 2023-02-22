@@ -8,7 +8,6 @@ class Bispo : Peca
     {
       
     }
-    
     public override string ToString()
     {
         return "B";

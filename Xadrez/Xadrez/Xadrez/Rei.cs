@@ -4,9 +4,10 @@ namespace Xadrez;
 
 class Rei : Peca
 {
-    public Rei(Tabuleiro tab, Cor cor) : base (tab, cor)
+    private PartidadeXadrez partida;
+    public Rei(Tabuleiro tab, Cor cor, PartidadeXadrez partida) : base (tab, cor)
     {
-
+        this.partida = partida;
     }
     public override string ToString()
     {
@@ -16,6 +17,11 @@ class Rei : Peca
     {
         Peca p = tab.peca(pos);
         return p == null || p.cor != cor;
+    }
+    private bool TesteTorreParaRoque(Posicao pos)
+    {
+        Peca p = tab.peca(pos);
+        return p != null && p is Torre && p.cor == cor && p.QteMovimentos == 0;
     }
     public override bool[,] MovimentosPossiveis()
     {
@@ -77,6 +83,37 @@ class Rei : Peca
         if (tab.Posicaovalida(pos) && PodeMover(pos))
         {
             mat[pos.linha, pos.coluna] = true;
+        }
+
+        //#JogadaEspecial RoquePequeno 
+        if (QteMovimentos == 0 && !partida.xeque)
+        {
+            Posicao PosT1 = new Posicao(posicao.linha, posicao.coluna + 3);
+            if (TesteTorreParaRoque(PosT1)) 
+            {
+                Posicao p1 = new Posicao(posicao.linha, posicao.coluna + 1);
+                Posicao p2 = new Posicao(posicao.linha, posicao.coluna + 2);
+                if (tab.peca(p1) == null && tab.peca(p2) == null)
+                {
+                    mat[posicao.linha, posicao.coluna + 2] = true; 
+                }
+            }
+        }
+
+        //#JogadaEspecial RoqueGrande
+        if (QteMovimentos == 0 && !partida.xeque)
+        {
+            Posicao PosT2 = new Posicao(posicao.linha, posicao.coluna + 3);
+            if (TesteTorreParaRoque(PosT2))
+            {
+                Posicao p1 = new Posicao(posicao.linha, posicao.coluna - 1);
+                Posicao p2 = new Posicao(posicao.linha, posicao.coluna - 2);
+                Posicao p3 = new Posicao(posicao.linha, posicao.coluna - 3);
+                if (tab.peca(p1) == null && tab.peca(p2) == null && tab.peca(p3) == null)
+                {
+                    mat[posicao.linha, posicao.coluna - 2] = true;
+                }
+            }
         }
         return mat;
     }
