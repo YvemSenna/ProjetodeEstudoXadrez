@@ -67,9 +67,15 @@ class PartidadeXadrez
         {
             xeque = false;
         }
-
-        turno++;
-        MudaJogador();
+        if (TesteXequeMate(Adversaria(JogadorAtual)))
+        {
+            terminada= true;    
+        }
+        else
+        {
+            turno++;
+            MudaJogador();
+        }
     }
     public void ValidarPosicaoDeOrigem(Posicao pos)
     {
@@ -158,7 +164,7 @@ class PartidadeXadrez
         {
             throw new TabuleiroException("Não tem Rei da cor " + cor + "no tabuleiro!");
         }
-        foreach (Peca x in PecasEmJogo(Adversaria(cor)) 
+        foreach (Peca x in PecasEmJogo(Adversaria(cor))) 
         {
             bool[,] mat = x.MovimentosPossiveis();
             if (mat[R.posicao.linha, R.posicao.coluna])
@@ -167,6 +173,37 @@ class PartidadeXadrez
             }
         }
         return false;
+    }
+    public bool TesteXequeMate(Cor cor)
+    {
+        if (!EstaEmXeque(cor))
+        {
+            return false;
+        }
+        foreach (Peca x in PecasEmJogo(cor)) 
+        {
+            bool[,] mat = x.MovimentosPossiveis();
+
+            for (int i = 0; i < tab.linhas; i++) 
+            {
+                for (int j = 0; j < tab.colunas; j ++)
+                {
+                    if (mat[i, j])
+                    {
+                        Posicao origem = x.posicao;
+                        Posicao destino = new Posicao(i, j);
+                        Peca PecaCapturada = ExecutaMovimento(origem, destino);
+                        bool TesteXeque = EstaEmXeque(cor);
+                        DesfazMovimento(origem, destino, PecaCapturada);
+                        if (!TesteXeque) 
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
     }
     public void ColocarNovaPeca(char coluna, int linha, Peca peca)
     {
